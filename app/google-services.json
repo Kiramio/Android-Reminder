@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "84479910113",
+    "firebase_url": "https://android-reminder-f33cc.firebaseio.com",
+    "project_id": "android-reminder-f33cc",
+    "storage_bucket": "android-reminder-f33cc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:84479910113:android:dcbfc7058aef0e159c97a0",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "84479910113-nu5th3m2flda3asvq2niin8es9qphl67.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqFRAkiiSEcX1tbVYoukcMuCER_uJusRM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "84479910113-nu5th3m2flda3asvq2niin8es9qphl67.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

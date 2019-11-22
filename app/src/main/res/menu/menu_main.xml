@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.yan.myapplication.MainActivity">
+    <item
+        android:id="@+id/ongo"
+        android:orderInCategory="100"
+        android:title="Ongoing"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/finish"
+        android:orderInCategory="100"
+        android:title="Finished"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/trash"
+        android:orderInCategory="100"
+        android:title="Trashcan"
+        app:showAsAction="never" />
+</menu>
