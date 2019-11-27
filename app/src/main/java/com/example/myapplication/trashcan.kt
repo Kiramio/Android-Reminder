@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -15,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_homepage.toolbar
 import kotlinx.android.synthetic.main.activity_trashcan.*
 
 class trashcan : AppCompatActivity(),
-    NavigationView.OnNavigationItemSelectedListener{
+    NavigationView.OnNavigationItemSelectedListener, ongoingFragment.OnFragmentInteractionListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +43,10 @@ class trashcan : AppCompatActivity(),
         }
         trashcan.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    override fun onFragmentInteraction(uri: Uri) {
+
     }
 
     override fun onBackPressed() {

@@ -4,30 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/ui1"
     tools:context=".MainActivity">
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="168dp"
+        android:layout_width="414dp"
+        android:layout_height="77dp"
         android:text="Create Account"
+        android:background="#34D2AF"
+        android:fontFamily="sans-serif-condensed"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="235dp"
-        android:layout_height="77dp"
-        android:layout_marginBottom="112dp"
-        android:fontFamily="monospace"
+        android:layout_width="288dp"
+        android:layout_height="87dp"
+        android:layout_marginBottom="108dp"
+        android:fontFamily="sans-serif"
         android:gravity="center"
         android:text="New User Welcome!"
-        android:textColor="#126AC9"
-        android:textSize="20sp"
+        android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/registerEmail"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -37,6 +40,8 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="248dp"
         android:text="UserEmail"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,6 +51,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="33dp"
         android:text="Password"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif"
         app:layout_constraintBaseline_toBaselineOf="@+id/registerPasswd"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -53,8 +60,8 @@
         android:id="@+id/registerPasswd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="55dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
         android:ems="10"
         android:inputType="textPassword"
         app:layout_constraintStart_toEndOf="@+id/textView3"
@@ -74,9 +81,11 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="20dp"
         android:text="Username"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif"
         app:layout_constraintEnd_toStartOf="@+id/userName"
         app:layout_constraintTop_toTopOf="@+id/userName" />
 
@@ -84,10 +93,11 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="12dp"
-        android:text="Re-enter Password"
-        android:textSize="12sp"
+        android:layout_marginStart="44dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="sans-serif"
+        android:text="Re-enter"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/registerPasswd2"
         app:layout_constraintStart_toStartOf="parent" />
 

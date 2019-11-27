@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -15,7 +16,9 @@ import kotlinx.android.synthetic.main.activity_homepage.navView
 import kotlinx.android.synthetic.main.activity_homepage.toolbar
 
 class finished : AppCompatActivity(),
-    NavigationView.OnNavigationItemSelectedListener{
+
+    NavigationView.OnNavigationItemSelectedListener, ongoingFragment.OnFragmentInteractionListener{
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +45,11 @@ class finished : AppCompatActivity(),
         }
         finished.closeDrawer(GravityCompat.START)
         return true
+    }
+
+
+    override fun onFragmentInteraction(uri: Uri) {
+
     }
 
     override fun onBackPressed() {

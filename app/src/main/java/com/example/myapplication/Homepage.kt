@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -8,11 +9,12 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_homepage.*
 
 class Homepage : AppCompatActivity(),
-    NavigationView.OnNavigationItemSelectedListener {
+    NavigationView.OnNavigationItemSelectedListener, ongoingFragment.OnFragmentInteractionListener {
 
     val animals: ArrayList<String> = ArrayList()
 
@@ -24,6 +26,13 @@ class Homepage : AppCompatActivity(),
         animals.add("Learn Italian")
     }
 
+    fun replaceFragment(fragment: Fragment) {
+        val manager = supportFragmentManager
+        val transaction = manager.beginTransaction()
+        transaction.replace(R.id.fg2, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,11 +43,17 @@ class Homepage : AppCompatActivity(),
         toggle.syncState()
         navView.setNavigationItemSelectedListener(this)
 
+        //var f: ongoingFragment = ongoingFragment()
+        //replaceFragment(f)
+
+        /*
         addAnimals()
         rview1.layoutManager = androidx.recyclerview.widget.GridLayoutManager(this, 1)
         val myAdapter = MyAnimalAdapter(animals, this)
         //myAdapter.setMyItemClickListener(this)
         rview1.adapter = myAdapter
+        */
+
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean { // handler navigation menu item selection!
@@ -56,6 +71,10 @@ class Homepage : AppCompatActivity(),
         }
         homepage.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    override fun onFragmentInteraction(uri: Uri) {
+
     }
 
     override fun onBackPressed() {
