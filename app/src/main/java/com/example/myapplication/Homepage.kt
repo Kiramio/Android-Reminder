@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -8,11 +9,12 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_homepage.*
 
 class Homepage : AppCompatActivity(),
-    NavigationView.OnNavigationItemSelectedListener {
+    NavigationView.OnNavigationItemSelectedListener, ongoingFragment.OnFragmentInteractionListener {
 
     val animals: ArrayList<String> = ArrayList()
 
@@ -24,22 +26,33 @@ class Homepage : AppCompatActivity(),
         animals.add("Learn Italian")
     }
 
+    fun replaceFragment(fragment: Fragment) {
+        val manager = supportFragmentManager
+        val transaction = manager.beginTransaction()
+        transaction.replace(R.id.fg2, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_homepage)
         setSupportActionBar(toolbar)
-        val toggle = ActionBarDrawerToggle(this, mainAct, toolbar, R.string.open_nav, R.string.close_nav)
-        mainAct.addDrawerListener(toggle)
+        val toggle = ActionBarDrawerToggle(this, homepage, toolbar, R.string.open_nav, R.string.close_nav)
+        homepage.addDrawerListener(toggle)
         toggle.syncState()
         navView.setNavigationItemSelectedListener(this)
 
+        //var f: ongoingFragment = ongoingFragment()
+        //replaceFragment(f)
+
+        /*
         addAnimals()
         rview1.layoutManager = androidx.recyclerview.widget.GridLayoutManager(this, 1)
         val myAdapter = MyAnimalAdapter(animals, this)
         //myAdapter.setMyItemClickListener(this)
         rview1.adapter = myAdapter
-
+        */
 
     }
 
@@ -56,13 +69,17 @@ class Homepage : AppCompatActivity(),
                 intent.putExtra("action", 1)
                 startActivity(intent) }
         }
-        mainAct.closeDrawer(GravityCompat.START)
+        homepage.closeDrawer(GravityCompat.START)
         return true
     }
 
+    override fun onFragmentInteraction(uri: Uri) {
+
+    }
+
     override fun onBackPressed() {
-        if(mainAct.isDrawerOpen(GravityCompat.START)){
-            mainAct.closeDrawer(GravityCompat.START)
+        if(homepage.isDrawerOpen(GravityCompat.START)){
+            homepage.closeDrawer(GravityCompat.START)
         }
         else
             super.onBackPressed()
