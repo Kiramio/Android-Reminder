@@ -29,8 +29,8 @@ class Homepage : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_homepage)
         setSupportActionBar(toolbar)
-        val toggle = ActionBarDrawerToggle(this, mainAct, toolbar, R.string.open_nav, R.string.close_nav)
-        mainAct.addDrawerListener(toggle)
+        val toggle = ActionBarDrawerToggle(this, homepage, toolbar, R.string.open_nav, R.string.close_nav)
+        homepage.addDrawerListener(toggle)
         toggle.syncState()
         navView.setNavigationItemSelectedListener(this)
 
@@ -39,8 +39,6 @@ class Homepage : AppCompatActivity(),
         val myAdapter = MyAnimalAdapter(animals, this)
         //myAdapter.setMyItemClickListener(this)
         rview1.adapter = myAdapter
-
-
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean { // handler navigation menu item selection!
@@ -56,13 +54,13 @@ class Homepage : AppCompatActivity(),
                 intent.putExtra("action", 1)
                 startActivity(intent) }
         }
-        mainAct.closeDrawer(GravityCompat.START)
+        homepage.closeDrawer(GravityCompat.START)
         return true
     }
 
     override fun onBackPressed() {
-        if(mainAct.isDrawerOpen(GravityCompat.START)){
-            mainAct.closeDrawer(GravityCompat.START)
+        if(homepage.isDrawerOpen(GravityCompat.START)){
+            homepage.closeDrawer(GravityCompat.START)
         }
         else
             super.onBackPressed()
