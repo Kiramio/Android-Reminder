@@ -15,13 +15,16 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 
-class CreateAcc : AppCompatActivity(), BaseActivity() {
+class CreateAcc :  BaseActivity() {
     private lateinit var auth: FirebaseAuth
+    private lateinit var database: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        auth = FirebaseAuth.getInstance()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_acc)
+        auth = FirebaseAuth.getInstance()
+        database = FirebaseDatabase.getInstance().reference
+
 
         val btn_click_login = findViewById(R.id.button2) as Button
 // set on-click listener
@@ -37,6 +40,7 @@ class CreateAcc : AppCompatActivity(), BaseActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     val user = auth.currentUser
                     val intent = Intent(this, Homepage::class.java)
+                    writeNewUser(userName.getText().toString(),registerEmail.getText().toString())
                     startActivity(intent)
                 } else {
                     Log.w("aaa", "createUserWithEmail:failure", task.exception)
@@ -47,4 +51,11 @@ class CreateAcc : AppCompatActivity(), BaseActivity() {
                 // ...
             }
     }
+
+    private fun writeNewUser(userName: String, email: String){
+        val user = UserData(userName, email)
+        database.child("users").child(userName).setValue(user)
+    }
+
+
 }

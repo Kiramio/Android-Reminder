@@ -12,6 +12,7 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_homepage.*
+import layout.PagerAdapter
 
 class Homepage : AppCompatActivity(),
     NavigationView.OnNavigationItemSelectedListener, ongoingFragment.OnFragmentInteractionListener {
@@ -42,6 +43,21 @@ class Homepage : AppCompatActivity(),
         homepage.addDrawerListener(toggle)
         toggle.syncState()
         navView.setNavigationItemSelectedListener(this)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        viewPager.adapter = PagerAdapter(supportFragmentManager)
+        viewPager.currentItem = 3
+
+        btnFirst.setOnClickListener {
+            viewPager.currentItem = 0
+        }
+        btnSecond.setOnClickListener {
+            viewPager.currentItem = 1
+        }
+        btnThird.setOnClickListener {
+            viewPager.currentItem = 2
+        }
+
 
         //var f: ongoingFragment = ongoingFragment()
         //replaceFragment(f)
