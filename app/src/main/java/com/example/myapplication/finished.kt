@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_homepage.toolbar
 
 class finished : AppCompatActivity(),
 
-    NavigationView.OnNavigationItemSelectedListener, ongoingFragment.OnFragmentInteractionListener{
+    NavigationView.OnNavigationItemSelectedListener, finishedFragment.OnFragmentInteractionListener{
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
