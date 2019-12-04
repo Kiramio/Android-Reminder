@@ -34,28 +34,68 @@ class CreateAcc :  BaseActivity() {
     }
 
     fun createUser() {
-        auth.createUserWithEmailAndPassword(registerEmail.getText().toString(), registerPasswd.getText().toString())
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
+
+        val email = registerEmail.text.toString()
+        val password = registerPasswd.text.toString()
+        val testPasswd = registerPasswd2.text.toString()
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(baseContext, "Please enter text in email/pw", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if(password != testPasswd){
+            Toast.makeText(baseContext, "The passwords entered are different", Toast.LENGTH_SHORT).show()
+            return
+        }
+/*if (selectedPhotoUri == null){
+Toast.makeText(context, "Please select your profile image", Toast.LENGTH_SHORT).show()
+return
+}*/
+        Log.d("SignUp"
+            , "Attempting to create user with email: $email")
+        auth.createUserWithEmailAndPassword(email,password)
+            .addOnCompleteListener(this) {
+                if (!it.isSuccessful)  return@addOnCompleteListener
                     // Sign in success, update UI with the signed-in user's information
-                    val user = auth.currentUser
-                    val intent = Intent(this, Homepage::class.java)
-                    writeNewUser(userName.getText().toString(),registerEmail.getText().toString())
-                    startActivity(intent)
-                } else {
-                    Log.w("aaa", "createUserWithEmail:failure", task.exception)
-                    // If sign in fails, display a message to the user.
-                    Toast.makeText(baseContext, "Authentication failed: "+task.exception,
-                        Toast.LENGTH_SHORT).show()
-                }
-                // ...
+                    Log.d(
+                        "SignUp"
+                        , "Successfully created user with uid: ${it.result!!.user!!.uid}"
+                    )
+                saveUserToFirebaseDatabase()
+
+            }
+            .addOnFailureListener{
+                        Log.d("SignUp"
+                            , "Failed to create user: ${it.message}")
+                        Toast.makeText(baseContext, "Failed to create user: ${it.message}"
+                            , Toast.LENGTH_SHORT).show()
+                    }
+    }
+    private fun saveUserToFirebaseDatabase() {
+        val uid = FirebaseAuth.getInstance().uid ?: ""
+        val ref = FirebaseDatabase.getInstance().getReference("/users/$uid")
+        val user = UserData(uid, userName.text.toString(), registerEmail.text.toString())
+        ref.setValue(user)
+            .addOnSuccessListener {
+                Log.d("SignUp"
+                    , "saved the user to Firebase Database")
+// launch the Main activity, clear back stack,
+// not going back to login activity with back press button
+                val intent = Intent(baseContext, Homepage::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+            }
+            .addOnFailureListener {
+                Log.d("SignUp"
+                    , "Failed to set value to database: ${it.message}")
             }
     }
-
-    private fun writeNewUser(userName: String, email: String){
-        val user = UserData(userName, email)
-        database.child("users").child(userName).setValue(user)
-    }
-
-
 }
+
+
+
+
+
+
+
+
+
