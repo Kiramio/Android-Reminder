@@ -70,7 +70,8 @@ ongoingFragment.OnFragmentInteractionListener{
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.ongo-> {
-                supportFragmentManager.beginTransaction().add(R.id.meContainer, ongoingFragment()).commit()
+                val intent = Intent(this, Homepage::class.java)
+                startActivity(intent)
                 return true
             }
             R.id.finish-> {

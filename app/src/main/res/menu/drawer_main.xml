@@ -13,5 +13,18 @@
             android:id="@+id/nav_trash"
             android:icon="@drawable/ic_delete_black_24dp"
             android:title="Trashcan"/>
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_delete_black_24dp"
+            android:title="Share"/>
+        <item
+            android:id="@+id/nav_custom1"
+            android:icon="@drawable/ic_delete_black_24dp"
+            android:title="Galaxy Background"/>
+        <item
+            android:id="@+id/nav_custom2"
+            android:icon="@drawable/ic_delete_black_24dp"
+            android:title="Pure Background"/>
+
     </group>
 </menu>
