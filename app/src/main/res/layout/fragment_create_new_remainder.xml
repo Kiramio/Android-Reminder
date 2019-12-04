@@ -55,14 +55,16 @@
 
             <Button
                 android:id="@+id/discard"
-                android:layout_width="1198dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Discard" />
 
             <Button
                 android:id="@+id/commit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Create" />
         </LinearLayout>
 
