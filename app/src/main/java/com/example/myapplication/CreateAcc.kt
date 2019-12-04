@@ -80,7 +80,7 @@ return
                     , "saved the user to Firebase Database")
 // launch the Main activity, clear back stack,
 // not going back to login activity with back press button
-                val intent = Intent(baseContext, Homepage::class.java)
+                val intent = Intent(this, Homepage::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
             }
