@@ -13,9 +13,16 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_homepage.*
 import layout.PagerAdapter
+import com.google.android.material.tabs.TabLayout
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
+
 
 class Homepage : AppCompatActivity(),
-    NavigationView.OnNavigationItemSelectedListener, ongoingFragment.OnFragmentInteractionListener {
+    NavigationView.OnNavigationItemSelectedListener, ongoingFragment.OnFragmentInteractionListener, trashcanFragment.OnFragmentInteractionListener
+, finishedFragment.OnFragmentInteractionListener {
 
     val animals: ArrayList<String> = ArrayList()
 
@@ -45,18 +52,15 @@ class Homepage : AppCompatActivity(),
         navView.setNavigationItemSelectedListener(this)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        viewPager.adapter = PagerAdapter(supportFragmentManager)
-        viewPager.currentItem = 3
+        viewPager1.adapter = PagerAdapter(supportFragmentManager)
+        //myPageTransformer
+        viewPager1.currentItem = 0
 
-        btnFirst.setOnClickListener {
-            viewPager.currentItem = 0
-        }
-        btnSecond.setOnClickListener {
-            viewPager.currentItem = 1
-        }
-        btnThird.setOnClickListener {
-            viewPager.currentItem = 2
-        }
+        btnPanel.setupWithViewPager(viewPager1)
+
+            btnPanel.getTabAt(0)?.setText("Ongoing")
+        btnPanel.getTabAt(1)?.setText("Finished")
+        btnPanel.getTabAt(2)?.setText("Trashcan")
 
 
         //var f: ongoingFragment = ongoingFragment()

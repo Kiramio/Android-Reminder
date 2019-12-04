@@ -6,8 +6,9 @@
     android:background="@drawable/ui2"
     tools:context=".ongoingFragment">
 
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rview3"
+        android:id="@+id/rview_ongoing"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"

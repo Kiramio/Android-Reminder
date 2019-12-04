@@ -16,7 +16,8 @@ import kotlinx.android.synthetic.main.activity_homepage.toolbar
 import kotlinx.android.synthetic.main.activity_trashcan.*
 
 class trashcan : AppCompatActivity(),
-    NavigationView.OnNavigationItemSelectedListener, trashcanFragment.OnFragmentInteractionListener {
+    NavigationView.OnNavigationItemSelectedListener, trashcanFragment.OnFragmentInteractionListener,
+ongoingFragment.OnFragmentInteractionListener{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
