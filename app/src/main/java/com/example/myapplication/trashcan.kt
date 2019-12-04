@@ -32,7 +32,9 @@ ongoingFragment.OnFragmentInteractionListener{
     override fun onNavigationItemSelected(item: MenuItem): Boolean { // handler navigation menu item selection!
         when(item.itemId){
             R.id.nav_ongoing -> {
-                supportFragmentManager.beginTransaction().add(R.id.meContainer, ongoingFragment()).commit() }
+                    val intent = Intent(this, Homepage::class.java)
+                    intent.putExtra("action", 0)
+                    startActivity(intent) }
             R.id.nav_finished -> {
                 val intent = Intent(this, finished::class.java)
                 intent.putExtra("action", 0)

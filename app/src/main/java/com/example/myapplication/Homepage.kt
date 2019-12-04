@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -50,7 +51,7 @@ class Homepage : AppCompatActivity(),
         homepage.addDrawerListener(toggle)
         toggle.syncState()
         navView.setNavigationItemSelectedListener(this)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        //supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         viewPager1.adapter = PagerAdapter(supportFragmentManager)
         //myPageTransformer
@@ -79,7 +80,9 @@ class Homepage : AppCompatActivity(),
     override fun onNavigationItemSelected(item: MenuItem): Boolean { // handler navigation menu item selection!
         when(item.itemId){
             R.id.nav_ongoing -> {
-                supportFragmentManager.beginTransaction().add(R.id.meContainer, ongoingFragment()).commit() }
+                    val intent = Intent(this, Homepage::class.java)
+                    intent.putExtra("action", 0)
+                    startActivity(intent) }
             R.id.nav_finished -> {
                 val intent = Intent(this, finished::class.java)
                 intent.putExtra("action", 0)
@@ -88,6 +91,16 @@ class Homepage : AppCompatActivity(),
                 val intent = Intent(this, trashcan::class.java)
                 intent.putExtra("action", 1)
                 startActivity(intent) }
+            R.id.nav_share -> {
+
+            }
+            R.id.nav_custom1-> {
+                navView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark))
+            }
+            R.id.nav_custom2-> {
+                navView.setBackgroundColor(getResources().getColor(R.color.gray))
+            }
+
         }
         homepage.closeDrawer(GravityCompat.START)
         return true
