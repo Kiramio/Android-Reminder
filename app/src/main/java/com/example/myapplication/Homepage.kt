@@ -18,7 +18,7 @@ import com.google.android.material.tabs.TabLayout
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-
+import android.view.View
 
 
 class Homepage : AppCompatActivity(),
@@ -33,6 +33,15 @@ class Homepage : AppCompatActivity(),
         animals.add("Team Work in CIS453")
         animals.add("Read Novel")
         animals.add("Learn Italian")
+    }
+
+    fun showTimePickerDialog(v : View) {
+        TimePickerFragment().show(supportFragmentManager, "timePicker")
+    }
+
+    fun showDatePickerDialog(v: View) {
+        val newFragment = DatePickerFragment()
+        newFragment.show(supportFragmentManager, "datePicker")
     }
 
     fun replaceFragment(fragment: Fragment) {
