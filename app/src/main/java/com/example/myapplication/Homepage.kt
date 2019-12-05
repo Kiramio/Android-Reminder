@@ -23,7 +23,7 @@ import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 
 class Homepage : AppCompatActivity(),
     NavigationView.OnNavigationItemSelectedListener, ongoingFragment.OnFragmentInteractionListener, trashcanFragment.OnFragmentInteractionListener
-, finishedFragment.OnFragmentInteractionListener {
+, finishedFragment.OnFragmentInteractionListener, CreateNewRemainder.OnFragmentInteractionListener {
 
     val animals: ArrayList<String> = ArrayList()
 
@@ -63,6 +63,10 @@ class Homepage : AppCompatActivity(),
         btnPanel.getTabAt(1)?.setText("Finished")
         btnPanel.getTabAt(2)?.setText("Trashcan")
 
+        val fragment = CreateNewRemainder()
+        fab.setOnClickListener {
+            supportFragmentManager.beginTransaction().replace(R.id.meContainer, fragment).addToBackStack(null).commit()
+        }
 
         //var f: ongoingFragment = ongoingFragment()
         //replaceFragment(f)
