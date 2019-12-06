@@ -1,7 +1,10 @@
 package com.example.myapplication
 
+import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.ColorStateList
+import android.graphics.Bitmap
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -15,11 +18,24 @@ import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_homepage.*
 import layout.PagerAdapter
 import com.google.android.material.tabs.TabLayout
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.os.PersistableBundle
+import android.util.Log
+import android.view.View
+import com.example.android.dessertpusher.DessertTimer
+import kotlinx.android.synthetic.main.nav_header.*
+import timber.log.Timber
+import android.provider.MediaStore
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.util.Log
-import android.view.View
+import android.os.Environment.getExternalStorageDirectory
+import java.io.File
+
+//import sun.jvm.hotspot.utilities.IntArray
+
+
 
 
 class Homepage : AppCompatActivity(),
@@ -28,6 +44,12 @@ class Homepage : AppCompatActivity(),
 
 
     val animals: ArrayList<String> = ArrayList()
+    private lateinit var dessertTimer: DessertTimer
+    val CAMERA_REQUEST_CODE=0
+    val IMAGE_PICK_CODE = 1000
+    private val PERMISSION_CODE= 1001;
+    private var position = -1
+    private var reminder:ReminderData? = null
 
     private fun addAnimals() {
         animals.add("To Swim")
@@ -45,8 +67,44 @@ class Homepage : AppCompatActivity(),
         transaction.commit()
     }
 
+    override fun onStart() {
+        super.onStart()
+        Timber.i("onStart Called")
+        Log.i("Homepage", "onStart Called")
+        dessertTimer.startTimer()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Timber.i("onPause Called")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Timber.i("onDestroy Called")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Timber.i("onResume Called")
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Timber.i("onRestart Called")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Timber.i("onStop Called")
+        dessertTimer.stopTimer()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        dessertTimer = DessertTimer(this.lifecycle)
+
         setContentView(R.layout.activity_homepage)
         setSupportActionBar(toolbar)
         val toggle = ActionBarDrawerToggle(this, homepage, toolbar, R.string.open_nav, R.string.close_nav)
@@ -102,14 +160,62 @@ class Homepage : AppCompatActivity(),
             }
             R.id.nav_custom1-> {
                 navView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark))
+                abc.setBackgroundResource(R.drawable.galaxy)
             }
             R.id.nav_custom2-> {
                 navView.setBackgroundColor(getResources().getColor(R.color.gray))
+                abc.setBackgroundResource(R.drawable.add)
+            }
+            R.id.nav_camera-> {
+                val Intent3 = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                if(Intent3.resolveActivity(packageManager) != null) {
+                    startActivityForResult(Intent3, CAMERA_REQUEST_CODE)
+                }
+            }
+            R.id.nav_gallery-> {
+                val Intent2 = Intent(Intent.ACTION_PICK)
+                intent.type = "image/*"
+                startActivityForResult(Intent2, IMAGE_PICK_CODE)
             }
 
         }
         homepage.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        when(requestCode){
+            PERMISSION_CODE -> {
+                if (grantResults.size >0 && grantResults[0] ==
+                    PackageManager.PERMISSION_GRANTED){
+                    //permission from popup granted
+                    val Intent2 = Intent(Intent.ACTION_PICK)
+                    intent.type = "image/*"
+                    startActivityForResult(Intent2, IMAGE_PICK_CODE)
+                }
+                else{
+                    //permission from popup denied
+                    Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE){
+            circular1.setImageURI(data?.data)
+        }
+        when(requestCode){
+            CAMERA_REQUEST_CODE ->{
+                if(resultCode== Activity.RESULT_OK && data !=null){
+                    circular1.setImageBitmap(data.extras?.get("data") as Bitmap)
+                }
+            }
+            else -> {
+                Toast.makeText(this,"Unrecognized request code",Toast.LENGTH_SHORT)
+            }
+        }
     }
 
     override fun onFragmentInteraction(uri: Uri) {
@@ -152,4 +258,34 @@ class Homepage : AppCompatActivity(),
             }
         }
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        Timber.i("onSaveInstanceState Called")
+        super.onSaveInstanceState(outState)
+    }
+
+    /*
+    override fun onItemClicked(rememo: ReminderData) {
+
+        this.reminder = reminder
+        supportFragmentManager.beginTransaction().replace(R.id.meContainer,
+            memoDetailFragment.newInstance(reminder!!)).addToBackStack(null).commit()
+    }
+
+     */
+
+    fun onRecyclerInteraction(reminder:ReminderData, position: Int) {
+        this.position = position
+        this.reminder = reminder
+        loadDetailFragment()
+    }
+
+
+    private fun loadDetailFragment(){
+        /*
+        supportFragmentManager.beginTransaction().replace(R.id.meContainer,
+            memoDetailFragment.newInstance(reminder!!)).addToBackStack(null).commit()
+         */
+    }
+
 }
