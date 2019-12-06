@@ -1,14 +1,19 @@
 package com.example.myapplication
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.DatePicker
+import android.widget.TimePicker
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_homepage.*
 import kotlinx.android.synthetic.main.fragment_create_new_remainder.*
@@ -26,7 +31,11 @@ private const val ARG_PARAM2 = "param2"
  * Use the [CreateNewRemainder.newInstance] factory method to
  * create an instance of this fragment.
  */
-class CreateNewRemainder : Fragment() {
+class CreateNewRemainder : Fragment(), TimePickerFragment.OnFragmentInteractionListener {
+    override fun onFragmentInteraction(a: Int) {
+        Log.w("aaaa",  a.toString())
+    }
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -57,7 +66,6 @@ class CreateNewRemainder : Fragment() {
             val intent = Intent(activity, Homepage::class.java)
             activity?.startActivity(intent)
              */
-
             //just need to discard and go back to the previous activity
         }
         val btn2: Button = view.findViewById(R.id.commit)
@@ -67,8 +75,34 @@ class CreateNewRemainder : Fragment() {
             //need to push the text into firebase
             fragmentManager?.popBackStackImmediate()
         }
+
+        val date1: Button = view.findViewById(R.id.date_text)
+        date1.setOnClickListener {
+            val dateDialog = DatePickerDialog(context!!, object : DatePickerDialog.OnDateSetListener {
+                override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+                    //where record the date
+                    Log.i("aaaaa", dayOfMonth.toString())
+                }
+            }, 2019, 10, 1)
+            dateDialog.show()
+        }
+
+        val text1: Button = view.findViewById(R.id.time_text)
+        text1.setOnClickListener {
+            val timeDialog = TimePickerDialog(context!!, object : TimePickerDialog.OnTimeSetListener {
+                override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+                    //where record the time
+                    Log.i("aaaaa", hourOfDay.toString())
+                }
+            }, 24, 60, true)
+            timeDialog.show()
+        }
         return view
-    }
+        }
+
+
+
+
 
     // TODO: Rename method, update argument and hook method into UI event
     fun onButtonPressed(uri: Uri) {
