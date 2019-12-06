@@ -64,8 +64,8 @@ class ongoingFragment : androidx.fragment.app.Fragment(), rememoRecyclerAdapter.
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
+    fun onButtonPressed(rememo: ReminderData) {
+        listener1?.onItemClicked(rememo)
     }
 
     override fun onAttach(context: Context) {

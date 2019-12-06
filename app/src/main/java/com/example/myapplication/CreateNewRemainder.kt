@@ -136,12 +136,15 @@ class CreateNewRemainder : Fragment(), TimePickerFragment.OnFragmentInteractionL
     }
 
     fun createReminder(){
+        /*
         val database = FirebaseDatabase.getInstance()
         val uid = FirebaseAuth.getInstance().uid!!
         val id = getCurrentTime()
         val ref = database.getReference("/reminders/$id")
         val setTime =
         val reminder = ReminderData(id, uid, reminder_title.text.toString(),reminder_detail.text.toString(),0, )
+
+         */
     }
 
     /**

@@ -24,34 +24,7 @@ data class ReminderData(
 ) : Serializable
 
 
-val rememos = """
-    [
-    {
-        "id":1,
-        "content":"CIS400 Presentation",
-        "status":1,
-        "header":"Final Presentation",
-        "checked":false,
-        "deleted":false
-    },
-    {
-        "id":1,
-        "content":"CSGo",
-        "status":1,
-        "header":"Final",
-        "checked":false,
-        "deleted":false
-    },
-    {
-        "id":1,
-        "content":"BAC",
-        "status":1,
-        "header":"Final",
-        "checked":false,
-        "deleted":false
-    }
-    ]
-""".trimIndent()
+
 
 val movies = """
     [
