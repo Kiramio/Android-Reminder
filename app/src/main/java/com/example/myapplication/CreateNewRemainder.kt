@@ -19,6 +19,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_homepage.*
 import kotlinx.android.synthetic.main.fragment_create_new_remainder.*
+import java.sql.Timestamp
+import java.text.ParsePosition
 import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.format.DateTimeFormatter
@@ -46,6 +48,11 @@ class CreateNewRemainder : Fragment(), TimePickerFragment.OnFragmentInteractionL
     private var param1: String? = null
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
+    var mYear :Int = 0
+    var mMonth :Int = 0
+    var mDay :Int = 0
+    var mHour :Int = 0
+    var mMinute :Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,6 +95,9 @@ class CreateNewRemainder : Fragment(), TimePickerFragment.OnFragmentInteractionL
         date1.setOnClickListener {
             val dateDialog = DatePickerDialog(context!!, object : DatePickerDialog.OnDateSetListener {
                 override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+                    mYear = year
+                    mMonth = month
+                    mDay = dayOfMonth
                     //where record the date
                     Log.i("aaaaa", dayOfMonth.toString())
                 }
@@ -97,14 +107,18 @@ class CreateNewRemainder : Fragment(), TimePickerFragment.OnFragmentInteractionL
 
         val text1: Button = view.findViewById(R.id.time_text)
         text1.setOnClickListener {
-            val timeDialog = TimePickerDialog(context!!, object : TimePickerDialog.OnTimeSetListener {
-                override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
-                    //where record the time
-                    Log.i("aaaaa", hourOfDay.toString())
-                }
-            }, 24, 60, true)
+            val timeDialog =
+                TimePickerDialog(context!!, object : TimePickerDialog.OnTimeSetListener {
+                    override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+                        //where record the time
+                        mHour = hourOfDay
+                        mMinute = minute
+                        Log.i("aaaaa", hourOfDay.toString())
+                    }
+                }, 24, 60, true)
             timeDialog.show()
         }
+
         return view
         }
 
@@ -136,13 +150,19 @@ class CreateNewRemainder : Fragment(), TimePickerFragment.OnFragmentInteractionL
     }
 
     fun createReminder(){
+        var calendar : Calendar = Calendar.getInstance()
+        calendar.set(mYear, mMonth, mDay, mHour, mMinute)
         val database = FirebaseDatabase.getInstance()
         val uid = FirebaseAuth.getInstance().uid!!
         val id = getCurrentTime()
-        val ref = database.getReference("/reminders/$id")
-        val setTime =
-        val reminder = ReminderData(id, uid, reminder_title.text.toString(),reminder_detail.text.toString(),0, )
+        val ref = database.getReference("/reminders/")
+        val setTime = calendar.getTimeInMillis()
+        val reminder = ReminderData(uid, reminder_title.text.toString(),reminder_detail.text.toString(),0, setTime, false, false)
+        val key = ref.push().key
+        ref.child(key!!).setValue(reminder)
     }
+
+
 
     /**
      * This interface must be implemented by activities that contain this
