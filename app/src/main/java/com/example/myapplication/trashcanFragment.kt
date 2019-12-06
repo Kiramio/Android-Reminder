@@ -8,6 +8,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import com.example.myapplication.trashcan
 import kotlinx.android.synthetic.main.activity_trashcan.*
+import kotlinx.android.synthetic.main.fragment_trashcan.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,11 +23,15 @@ private const val ARG_PARAM2 = "param2"
  * Use the [trashcanFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class trashcanFragment : Fragment() {
+class trashcanFragment : Fragment(), rememoRecyclerAdapter.MyItemClickListener {
     // TODO: Rename and change types of parameters
+    val myAdapter = rememoRecyclerAdapter(ArrayList(RememoList().rememo))
+    private var listener1: finishedFragment.OnRecyclerInteractionListener? = null
+    private var position = -1
     private var param1: String? = null
     private var param2: String? = null
-    private var listener: OnFragmentInteractionListener? = null
+    private var rememo: ReminderData? = null
+    private var listener: trashcanFragment.OnFragmentInteractionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +39,21 @@ class trashcanFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        var layoutManager: androidx.recyclerview.widget.RecyclerView.LayoutManager
+        layoutManager = androidx.recyclerview.widget.LinearLayoutManager(view.context)
+        rview_trashcan.hasFixedSize()
+        rview_trashcan.layoutManager = layoutManager
+        myAdapter.setMyItemClickListener(this)
+        rview_trashcan.adapter = myAdapter
+// default Item Animator
+        rview_trashcan.itemAnimator?.addDuration = 1000L
+        rview_trashcan.itemAnimator?.removeDuration = 1000L
+        rview_trashcan.itemAnimator?.moveDuration = 1000L
+        rview_trashcan.itemAnimator?.changeDuration = 1000L
     }
 
     override fun onCreateView(
@@ -97,6 +117,18 @@ class trashcanFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun onItemClickedFromAdapter(rememo: ReminderData) {
+        onItemClickedFromRecyclerViewFragment(rememo)
+    }
+
+    interface OnRecyclerInteractionListener {
+        fun onItemClicked(rememo: ReminderData)
+    }
+
+    fun onItemClickedFromRecyclerViewFragment(rememo: ReminderData) {
+        listener1?.onItemClicked(rememo)
     }
 
 }

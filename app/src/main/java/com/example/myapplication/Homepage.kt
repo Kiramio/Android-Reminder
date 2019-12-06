@@ -267,7 +267,7 @@ class Homepage : AppCompatActivity(),
 
 
     override fun onItemClicked(rememo: ReminderData) {
-        this.reminder = reminder
+        this.reminder = rememo
 
         supportFragmentManager.beginTransaction().replace(R.id.meContainer,
             memoDetailFragment.newInstance(reminder!!)).addToBackStack(null).commit()
