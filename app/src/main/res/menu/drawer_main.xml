@@ -25,6 +25,14 @@
             android:id="@+id/nav_custom2"
             android:icon="@drawable/ic_brightness_1_black_24dp"
             android:title="Pure Background"/>
+        <item
+            android:id="@+id/nav_camera"
+            android:icon="@drawable/ic_videocam_black_24dp"
+            android:title="Change Profile Photo1"/>
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/ic_video_library_black_24dp"
+            android:title="Change Profile Photo2"/>
 
     </group>
 </menu>
