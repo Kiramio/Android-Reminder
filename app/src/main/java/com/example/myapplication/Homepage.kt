@@ -40,9 +40,10 @@ import java.io.File
 
 class Homepage : AppCompatActivity(),
     NavigationView.OnNavigationItemSelectedListener, ongoingFragment.OnFragmentInteractionListener, trashcanFragment.OnFragmentInteractionListener
-, finishedFragment.OnFragmentInteractionListener, CreateNewRemainder.OnFragmentInteractionListener {
+, finishedFragment.OnFragmentInteractionListener, CreateNewRemainder.OnFragmentInteractionListener, ongoingFragment.OnRecyclerInteractionListener {
 
 
+    private var mTwo = false
     val animals: ArrayList<String> = ArrayList()
     private lateinit var dessertTimer: DessertTimer
     val CAMERA_REQUEST_CODE=0
@@ -264,15 +265,16 @@ class Homepage : AppCompatActivity(),
         super.onSaveInstanceState(outState)
     }
 
-    /*
-    override fun onItemClicked(rememo: ReminderData) {
 
+    override fun onItemClicked(rememo: ReminderData) {
         this.reminder = reminder
+
         supportFragmentManager.beginTransaction().replace(R.id.meContainer,
             memoDetailFragment.newInstance(reminder!!)).addToBackStack(null).commit()
     }
 
-     */
+
+
 
     fun onRecyclerInteraction(reminder:ReminderData, position: Int) {
         this.position = position
@@ -282,10 +284,8 @@ class Homepage : AppCompatActivity(),
 
 
     private fun loadDetailFragment(){
-        /*
         supportFragmentManager.beginTransaction().replace(R.id.meContainer,
             memoDetailFragment.newInstance(reminder!!)).addToBackStack(null).commit()
-         */
     }
 
 }

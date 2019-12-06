@@ -5,6 +5,7 @@ import java.sql.Timestamp
 import java.io.Serializable
 import java.sql.Date
 import java.sql.Time
+import com.google.gson.annotations.SerializedName
 
 class ReminderData(
     val uid: String,
