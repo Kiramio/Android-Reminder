@@ -11,24 +11,24 @@
         android:layout_width="match_parent"
         android:layout_height="871dp"
         android:layout_marginTop="65dp"
-        app:layout_constraintEnd_toEndOf="@+id/rvTitle"
-        app:layout_constraintStart_toEndOf="@+id/rvTitle">
+        app:layout_constraintEnd_toEndOf="@+id/rvHeader"
+        app:layout_constraintStart_toEndOf="@+id/rvHeader">
 
 
         <TextView
-            android:id="@+id/rvTitle"
+            android:id="@+id/rvHeader"
             android:layout_width="363dp"
             android:layout_height="44dp"
             android:text="TextView"
             android:textSize="32dp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/textView7"
+            app:layout_constraintBottom_toTopOf="@+id/rvDetail"
             app:layout_constraintEnd_toStartOf="@+id/button4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/rvDetail"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginEnd="2dp"
@@ -40,7 +40,7 @@
             app:layout_constraintEnd_toStartOf="@+id/button4"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rvTitle" />
+            app:layout_constraintTop_toBottomOf="@+id/rvHeader" />
 
         <Button
             android:id="@+id/button4"
@@ -51,7 +51,7 @@
             android:text="Add Photo"
             app:layout_constraintBottom_toTopOf="@+id/button5"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView7"
+            app:layout_constraintStart_toEndOf="@+id/rvDetail"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button

@@ -9,6 +9,7 @@ import android.view.animation.AnimationUtils
 import android.view.animation.ScaleAnimation
 import android.widget.CheckBox
 import android.widget.ImageView
+import android.widget.RadioButton
 import android.widget.TextView
 import java.util.*
 import kotlin.Comparator
@@ -21,8 +22,8 @@ class rememoRecyclerAdapter(val items : ArrayList<ReminderData>) :
     // Adapter Listener!!!
     interface MyItemClickListener {
         fun onItemClickedFromAdapter(reminder : ReminderData)
-        fun onItemLongClickedFromAdapter(position : Int)
-        fun onOverflowMenuClickedFromAdapter(view: View, position: Int)
+        //fun onItemLongClickedFromAdapter(position : Int)
+        //fun onOverflowMenuClickedFromAdapter(view: View, position: Int)
     }
     fun setMyItemClickListener ( listener: MyItemClickListener){
         this.myListener = listener
@@ -57,6 +58,7 @@ class rememoRecyclerAdapter(val items : ArrayList<ReminderData>) :
         length = if (length > 150) 150 else length
         holder.memoOverview.text = rememo.content?.substring(0, length - 1) + " ..."
         holder.memoSelect.isChecked = rememo.checked!!
+        holder.memoDelete.isChecked = rememo.deleted!!
 //setAnimation(holder.itemView, position)
     }
     private fun setAnimation(view: View, position: Int){
@@ -98,7 +100,7 @@ class rememoRecyclerAdapter(val items : ArrayList<ReminderData>) :
     fun getItem(index: Int) : Any{
         return items[index]
     }
-    fun addReminder() {
+    fun addMemo() {
         //addReminder
         notifyItemInserted(lastPosition+1)
     }
@@ -112,26 +114,22 @@ class rememoRecyclerAdapter(val items : ArrayList<ReminderData>) :
         return 0
     }
 
-    fun deleteMovie(position: Int){
+    fun deleteMemo(position: Int){
         items.removeAt(position)
         notifyDataSetChanged()
     }
-    fun sortMovies() {
-        items.sortWith(object: Comparator<ReminderData>{
-            override fun compare(o1: ReminderData?, o2: ReminderData?): Int {
-                return o1!!.id!!.compareTo(o2!!.id!!)
-            }
-        })
-        notifyDataSetChanged()
-    }
+
     inner class ReminderViewHolder(view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view){
-        val memoHeader = view.findViewById<ImageView>(R.id.rvHeader)
-        val memoTitle = view.findViewById<TextView>(R.id.rvTitle)
-        val memoOverview = view.findViewById<TextView>(R.id.rvOverview)
+        val memoTitle = view.findViewById<TextView>(R.id.rvHeader)
+        val memoOverview = view.findViewById<TextView>(R.id.rvDetail)
+        val memoDelete = view.findViewById<RadioButton>(R.id.rvDelete)
         val memoSelect = view.findViewById<CheckBox>(R.id.rvChx)
         init{
             memoSelect.setOnCheckedChangeListener { buttonView, isChecked ->
-                //items[adapterPosition].checked = isChecked
+                items[adapterPosition].checked = isChecked
+            }
+            memoDelete.setOnCheckedChangeListener { buttonView, isDeleted ->
+                items[adapterPosition].deleted = isDeleted
             }
             view.setOnClickListener {
                 if(myListener != null){
@@ -139,14 +137,6 @@ class rememoRecyclerAdapter(val items : ArrayList<ReminderData>) :
                         myListener!!.onItemClickedFromAdapter(items[adapterPosition])
                     }
                 }
-            }
-            view.setOnLongClickListener {
-                if(myListener != null){
-                    if(adapterPosition != androidx.recyclerview.widget.RecyclerView.NO_POSITION){
-                        myListener!!.onItemLongClickedFromAdapter(adapterPosition)
-                    }
-                }
-                true
             }
         }
     }

@@ -14,48 +14,27 @@
 
 
         <TextView
-            android:id="@+id/rvTitle"
-            android:layout_width="398dp"
-            android:layout_height="512dp"
+            android:id="@+id/rvHeader"
+            android:layout_width="406dp"
+            android:layout_height="50dp"
             android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
             android:layout_marginTop="9dp"
             android:layout_marginBottom="17dp"
             android:text="TextView"
             android:textSize="32dp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/textView7"
+            app:layout_constraintBottom_toTopOf="@+id/rvDetail"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/rvOverview"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:id="@+id/rvDetail"
+            android:layout_width="527dp"
+            android:layout_height="538dp"
             android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="12dp"
             android:text="TextView"
-            android:textIsSelectable="true"
-            app:layout_constraintBottom_toTopOf="@+id/button5"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView7" />
-
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="580dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginBottom="75dp"
-            android:text="TextView"
-            app:layout_constraintBottom_toTopOf="@+id/rvOverview"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rvTitle" />
+            app:layout_constraintTop_toBottomOf="@+id/rvHeader" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

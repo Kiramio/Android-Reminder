@@ -4,10 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import kotlinx.android.synthetic.main.fragment_ongoing.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,11 +21,15 @@ private const val ARG_PARAM2 = "param2"
  * Use the [ongoingFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ongoingFragment : Fragment() {
+class ongoingFragment : androidx.fragment.app.Fragment(), rememoRecyclerAdapter.MyItemClickListener {
     // TODO: Rename and change types of parameters
+    val myAdapter = rememoRecyclerAdapter(ArrayList(RememoList().rememo))
+    private var listener1: OnRecyclerInteractionListener? = null
     private var param1: String? = null
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
+    private var position = -1
+    private var rememo: ReminderData? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,10 +41,23 @@ class ongoingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        var layoutManager: androidx.recyclerview.widget.RecyclerView.LayoutManager
+        layoutManager = androidx.recyclerview.widget.LinearLayoutManager(view.context)
+        rview_ongoing.hasFixedSize()
+        rview_ongoing.layoutManager = layoutManager
+        myAdapter.setMyItemClickListener(this)
+        rview_ongoing.adapter = myAdapter
+// default Item Animator
+        rview_ongoing.itemAnimator?.addDuration = 1000L
+        rview_ongoing.itemAnimator?.removeDuration = 1000L
+        rview_ongoing.itemAnimator?.moveDuration = 1000L
+        rview_ongoing.itemAnimator?.changeDuration = 1000L
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
 
         return inflater.inflate(R.layout.fragment_ongoing, container, false)
@@ -100,5 +116,17 @@ class ongoingFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun onItemClickedFromAdapter(rememo: ReminderData) {
+        onItemClickedFromRecyclerViewFragment(rememo)
+    }
+
+    interface OnRecyclerInteractionListener {
+        fun onItemClicked(rememo: ReminderData)
+    }
+
+    fun onItemClickedFromRecyclerViewFragment(rememo: ReminderData) {
+        listener1?.onItemClicked(rememo)
     }
 }
