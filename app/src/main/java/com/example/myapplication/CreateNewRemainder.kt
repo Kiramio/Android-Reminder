@@ -10,8 +10,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_homepage.*
 import kotlinx.android.synthetic.main.fragment_create_new_remainder.*
+import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -65,7 +71,9 @@ class CreateNewRemainder : Fragment() {
             //fragmentManager?.popBackStack()
             Toast.makeText(context, "Added", Toast.LENGTH_SHORT).show()
             //need to push the text into firebase
+            createReminder()
             fragmentManager?.popBackStackImmediate()
+
         }
         return view
     }
@@ -87,6 +95,19 @@ class CreateNewRemainder : Fragment() {
     override fun onDetach() {
         super.onDetach()
         listener = null
+    }
+
+    fun getCurrentTime() : String{
+        return SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(Date())
+    }
+
+    fun createReminder(){
+        val database = FirebaseDatabase.getInstance()
+        val uid = FirebaseAuth.getInstance().uid!!
+        val id = getCurrentTime()
+        val ref = database.getReference("/reminders/$id")
+        val setTime =
+        val reminder = ReminderData(id, uid, reminder_title.text.toString(),reminder_detail.text.toString(),0, )
     }
 
     /**
@@ -124,4 +145,6 @@ class CreateNewRemainder : Fragment() {
                 }
             }
     }
+
+
 }
