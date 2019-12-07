@@ -40,7 +40,7 @@ import java.io.File
 
 class Homepage : AppCompatActivity(),
     NavigationView.OnNavigationItemSelectedListener, ongoingFragment.OnFragmentInteractionListener, trashcanFragment.OnFragmentInteractionListener
-, finishedFragment.OnFragmentInteractionListener, CreateNewRemainder.OnFragmentInteractionListener, ongoingFragment.OnRecyclerInteractionListener {
+, finishedFragment.OnFragmentInteractionListener, CreateNewRemainder.OnFragmentInteractionListener, ongoingFragment.OnRecyclerInteractionListener, memoDetailFragment.OnFragmentInteractionListener {
 
 
     private var mTwo = false
@@ -267,7 +267,7 @@ class Homepage : AppCompatActivity(),
 
 
     override fun onItemClicked(rememo: ReminderData) {
-        this.reminder = reminder
+        this.reminder = rememo
 
         supportFragmentManager.beginTransaction().replace(R.id.meContainer,
             memoDetailFragment.newInstance(reminder!!)).addToBackStack(null).commit()

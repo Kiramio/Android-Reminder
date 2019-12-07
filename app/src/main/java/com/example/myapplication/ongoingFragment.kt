@@ -21,7 +21,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [ongoingFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ongoingFragment : androidx.fragment.app.Fragment(), rememoRecyclerAdapter.MyItemClickListener {
+class ongoingFragment : androidx.fragment.app.Fragment(), rememoRecyclerAdapter.MyItemClickListener, memoDetailFragment.OnFragmentInteractionListener {
     // TODO: Rename and change types of parameters
     lateinit var myAdapter: rememoRecyclerAdapter
     private var listener1: OnRecyclerInteractionListener? = null
@@ -31,6 +31,9 @@ class ongoingFragment : androidx.fragment.app.Fragment(), rememoRecyclerAdapter.
     private var position = -1
     private var rememo: ReminderData? = null
 
+    override fun onFragmentInteraction(uri: Uri) {
+
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -65,14 +68,16 @@ class ongoingFragment : androidx.fragment.app.Fragment(), rememoRecyclerAdapter.
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
+    fun onButtonPressed(rememo: ReminderData) {
+        listener1?.onItemClicked(rememo)
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is OnFragmentInteractionListener) {
             listener = context
+        } else if (context is OnRecyclerInteractionListener) {
+            listener1 = context
         } else {
             throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
         }
@@ -81,6 +86,7 @@ class ongoingFragment : androidx.fragment.app.Fragment(), rememoRecyclerAdapter.
     override fun onDetach() {
         super.onDetach()
         listener = null
+        listener1 = null
     }
 
     /**
@@ -120,6 +126,14 @@ class ongoingFragment : androidx.fragment.app.Fragment(), rememoRecyclerAdapter.
     }
 
     override fun onItemClickedFromAdapter(rememo: ReminderData) {
+        /*
+        var memoDetailFragment:memoDetailFragment=memoDetailFragment()
+        val manager = activity?.supportFragmentManager
+        val transaction = manager?.beginTransaction()
+        transaction?.replace(R.id.rview_ongoing, memoDetailFragment())
+        transaction?.addToBackStack(null)
+        transaction?.commit()
+         */
         onItemClickedFromRecyclerViewFragment(rememo)
     }
 

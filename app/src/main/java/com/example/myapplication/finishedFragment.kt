@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.fragment_finished.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,10 +22,14 @@ private const val ARG_PARAM2 = "param2"
  * Use the [finishedFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class finishedFragment : Fragment() {
+class finishedFragment : Fragment(), rememoRecyclerAdapter.MyItemClickListener {
     // TODO: Rename and change types of parameters
+    val myAdapter = rememoRecyclerAdapter(ArrayList(RememoList().rememo))
+    private var listener1: finishedFragment.OnRecyclerInteractionListener? = null
+    private var position = -1
     private var param1: String? = null
     private var param2: String? = null
+    private var rememo: ReminderData? = null
     private var listener: OnFragmentInteractionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +38,21 @@ class finishedFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        var layoutManager: androidx.recyclerview.widget.RecyclerView.LayoutManager
+        layoutManager = androidx.recyclerview.widget.LinearLayoutManager(view.context)
+        rview_finished.hasFixedSize()
+        rview_finished.layoutManager = layoutManager
+        myAdapter.setMyItemClickListener(this)
+        rview_finished.adapter = myAdapter
+// default Item Animator
+        rview_finished.itemAnimator?.addDuration = 1000L
+        rview_finished.itemAnimator?.removeDuration = 1000L
+        rview_finished.itemAnimator?.moveDuration = 1000L
+        rview_finished.itemAnimator?.changeDuration = 1000L
     }
 
     override fun onCreateView(
@@ -96,5 +116,18 @@ class finishedFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+
+    override fun onItemClickedFromAdapter(rememo: ReminderData) {
+        onItemClickedFromRecyclerViewFragment(rememo)
+    }
+
+    interface OnRecyclerInteractionListener {
+        fun onItemClicked(rememo: ReminderData)
+    }
+
+    fun onItemClickedFromRecyclerViewFragment(rememo: ReminderData) {
+        listener1?.onItemClicked(rememo)
     }
 }

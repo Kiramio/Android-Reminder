@@ -16,3 +16,34 @@ class ReminderData(
     var checked: Boolean? = false,//if the reminder's check box is checked
     var deleted: Boolean? = false
 ) : Serializable
+
+val rememos = """
+    [
+    {
+        "id":1,
+        "content":"CIS400 Presentation",
+        "status":1,
+        "header":"Final Presentation",
+        "checked":false,
+        "deleted":false
+    },
+    {
+        "id":1,
+        "content":"CSGo",
+        "status":2,
+        "header":"Final",
+        "checked":false,
+        "deleted":false
+    },
+    {
+        "id":1,
+        "content":"BAC",
+        "status":1,
+        "header":"Final",
+        "checked":false,
+        "deleted":false
+    }
+    ]
+""".trimIndent()
+
+
