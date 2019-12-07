@@ -23,19 +23,16 @@ private const val ARG_PARAM2 = "param2"
  * Use the [ongoingFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ongoingFragment : androidx.fragment.app.Fragment(), rememoRecyclerAdapter.MyItemClickListener, memoDetailFragment.OnFragmentInteractionListener {
+class ongoingFragment : androidx.fragment.app.Fragment(), rememoRecyclerAdapter.MyItemClickListener {
     // TODO: Rename and change types of parameters
     lateinit var myAdapter: rememoRecyclerAdapter
-    private var listener1: OnRecyclerInteractionListener? = null
+    private var listener1: ongoingFragment.OnRecyclerInteractionListener? = null
     private var param1: String? = null
     private var param2: String? = null
-    private var listener: OnFragmentInteractionListener? = null
+    private var listener: ongoingFragment.OnFragmentInteractionListener? = null
     private var position = -1
     private var rememo: ReminderData? = null
 
-    override fun onFragmentInteraction(uri: Uri) {
-
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {

@@ -30,7 +30,7 @@ class finishedFragment : Fragment(), rememoRecyclerAdapter.MyItemClickListener {
     private var param1: String? = null
     private var param2: String? = null
     private var rememo: ReminderData? = null
-    private var listener: OnFragmentInteractionListener? = null
+    private var listener: finishedFragment.OnFragmentInteractionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,14 +65,16 @@ class finishedFragment : Fragment(), rememoRecyclerAdapter.MyItemClickListener {
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
+    fun onButtonPressed(rememo: ReminderData) {
+        listener1?.onItemClicked(rememo)
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is OnFragmentInteractionListener) {
             listener = context
+        } else if (context is OnRecyclerInteractionListener) {
+            listener1 = context
         } else {
             throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
         }
@@ -81,6 +83,7 @@ class finishedFragment : Fragment(), rememoRecyclerAdapter.MyItemClickListener {
     override fun onDetach() {
         super.onDetach()
         listener = null
+        listener1 = null
     }
 
     /**

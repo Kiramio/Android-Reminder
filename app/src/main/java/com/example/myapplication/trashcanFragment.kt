@@ -26,7 +26,7 @@ private const val ARG_PARAM2 = "param2"
 class trashcanFragment : Fragment(), rememoRecyclerAdapter.MyItemClickListener {
     // TODO: Rename and change types of parameters
     lateinit var myAdapter: rememoRecyclerAdapter
-    private var listener1: finishedFragment.OnRecyclerInteractionListener? = null
+    private var listener1: trashcanFragment.OnRecyclerInteractionListener? = null
     private var position = -1
     private var param1: String? = null
     private var param2: String? = null
@@ -66,8 +66,8 @@ class trashcanFragment : Fragment(), rememoRecyclerAdapter.MyItemClickListener {
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
+    fun onButtonPressed(rememo: ReminderData) {
+        listener1?.onItemClicked(rememo)
     }
 
     override fun onAttach(context: Context) {

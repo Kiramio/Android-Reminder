@@ -133,7 +133,7 @@ class rememoRecyclerAdapter(context : Context, num : Int) :
             1 -> {
                 layoutInflater.inflate(R.layout.item_ongoing, p0, false)
             }
-            3 -> {
+            2 -> {
                 layoutInflater.inflate(R.layout.item_finished, p0, false)
             }
             else -> {
