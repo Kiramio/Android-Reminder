@@ -5,8 +5,10 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
+import android.widget.RadioButton
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_ongoing.*
+import kotlinx.android.synthetic.main.item_ongoing.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -40,11 +42,12 @@ class ongoingFragment : androidx.fragment.app.Fragment(), rememoRecyclerAdapter.
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        myAdapter = rememoRecyclerAdapter(view.context)
+        myAdapter = rememoRecyclerAdapter(view.context, 1)
         var layoutManager: androidx.recyclerview.widget.RecyclerView.LayoutManager
         layoutManager = androidx.recyclerview.widget.LinearLayoutManager(view.context)
         rview_ongoing.hasFixedSize()
@@ -56,6 +59,10 @@ class ongoingFragment : androidx.fragment.app.Fragment(), rememoRecyclerAdapter.
         rview_ongoing.itemAnimator?.removeDuration = 1000L
         rview_ongoing.itemAnimator?.moveDuration = 1000L
         rview_ongoing.itemAnimator?.changeDuration = 1000L
+        view.findViewById<RadioButton>(R.id.rvDelete).setOnClickListener{
+
+        }
+
     }
 
     override fun onCreateView(

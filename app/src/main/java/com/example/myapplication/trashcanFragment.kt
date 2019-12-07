@@ -43,7 +43,7 @@ class trashcanFragment : Fragment(), rememoRecyclerAdapter.MyItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        myAdapter = rememoRecyclerAdapter(view.context)
+        myAdapter = rememoRecyclerAdapter(view.context, 3)
         var layoutManager: androidx.recyclerview.widget.RecyclerView.LayoutManager
         layoutManager = androidx.recyclerview.widget.LinearLayoutManager(view.context)
         rview_trashcan.hasFixedSize()

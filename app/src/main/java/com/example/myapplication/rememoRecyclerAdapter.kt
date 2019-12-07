@@ -16,7 +16,7 @@ import java.util.*
 import kotlin.Comparator
 import kotlin.collections.ArrayList
 
-class rememoRecyclerAdapter(context : Context) :
+class rememoRecyclerAdapter(context : Context, num : Int) :
     androidx.recyclerview.widget.RecyclerView.Adapter<rememoRecyclerAdapter.ReminderViewHolder>() {
     val items = ArrayList<ReminderData>()
     var myListener: MyItemClickListener? = null
@@ -25,7 +25,7 @@ class rememoRecyclerAdapter(context : Context) :
     private var ref = database.child("reminders")
     val TAG = "FB Adapter"
     val token = FirebaseAuth.getInstance().uid
-    var currentP: Int = 0
+    var pageNum = num
 
     var childEventListener = object: ChildEventListener{
         override fun onCancelled(p0: DatabaseError) {
@@ -57,8 +57,8 @@ class rememoRecyclerAdapter(context : Context) :
             val data = p0.getValue<ReminderData>(ReminderData::class.java)
             //Log.d("11111111", "msg" + p0.child("uid").getValue<String>(String::class.java))
             val key = p0.key
-            Log.d(TAG, "currentPage"+currentP+"data status"+data!!.status)
-            if(data != null && key != null && token.equals(data.uid) && currentP == data.status) {
+            Log.d(TAG, "currentPage"+pageNum+"data status"+data!!.status)
+            if(data != null && key != null && token.equals(data.uid) && pageNum == data.status) {
                 var insertPos = items.size
                 /*for( reminder in items ){
                     if(reminder..equals(key))
@@ -117,7 +117,6 @@ class rememoRecyclerAdapter(context : Context) :
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ReminderViewHolder {
         val layoutInflater = LayoutInflater.from(p0.context) // p0 is parent
         val view : View
-        currentP = p1
 // p1 -> View Type, check getItemViewType function!!
         Log.d("INFLATE11111111", "id" + p1  )
         view = when(p1){
@@ -148,7 +147,7 @@ class rememoRecyclerAdapter(context : Context) :
         holder.memoDelete.isChecked = rememo.deleted!!
 //setAnimation(holder.itemView, position)
     }
-    private fun setAnimation(view: View, position: Int){
+    /*private fun setAnimation(view: View, position: Int){
         if(position != lastPosition){
             when(getItemViewType(position)){
                 1 -> {
@@ -174,15 +173,9 @@ class rememoRecyclerAdapter(context : Context) :
 //animation.startOffset = position * 100L
             lastPosition = position
         }
-    }
+    }*/
     override fun getItemViewType(position: Int): Int {
-        if (items[position].status!! == 3 ) {
-            return 3
-        } else if (items[position].status!! == 2 ) {
-            return 2
-        } else {
-            return 1
-        }
+        return pageNum
     }
     fun getItem(index: Int) : Any{
         return items[index]

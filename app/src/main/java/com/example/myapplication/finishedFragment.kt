@@ -42,7 +42,7 @@ class finishedFragment : Fragment(), rememoRecyclerAdapter.MyItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        myAdapter = rememoRecyclerAdapter(view.context)
+        myAdapter = rememoRecyclerAdapter(view.context, 2)
         var layoutManager: androidx.recyclerview.widget.RecyclerView.LayoutManager
         layoutManager = androidx.recyclerview.widget.LinearLayoutManager(view.context)
         rview_finished.hasFixedSize()
