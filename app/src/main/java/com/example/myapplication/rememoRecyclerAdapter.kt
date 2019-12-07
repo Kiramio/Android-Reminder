@@ -122,14 +122,10 @@ class rememoRecyclerAdapter(context : Context) :
                 layoutInflater.inflate(R.layout.item_ongoing, p0, false)
             }
             1 -> {
-                layoutInflater.inflate(R.layout.item_ongoing, p0, false)
-
-                //layoutInflater.inflate(R.layout.item_finished, p0, false)
+                layoutInflater.inflate(R.layout.item_finished, p0, false)
             }
             else -> {
-                layoutInflater.inflate(R.layout.item_ongoing, p0, false)
-
-                //layoutInflater.inflate(R.layout.item_trash, p0, false)
+                layoutInflater.inflate(R.layout.item_trash, p0, false)
             }
         }
         return ReminderViewHolder(view)

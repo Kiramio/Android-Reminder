@@ -25,7 +25,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class trashcanFragment : Fragment(), rememoRecyclerAdapter.MyItemClickListener {
     // TODO: Rename and change types of parameters
-    val myAdapter = rememoRecyclerAdapter(ArrayList(RememoList().rememo))
+    lateinit var myAdapter: rememoRecyclerAdapter
     private var listener1: finishedFragment.OnRecyclerInteractionListener? = null
     private var position = -1
     private var param1: String? = null
@@ -43,6 +43,7 @@ class trashcanFragment : Fragment(), rememoRecyclerAdapter.MyItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        myAdapter = rememoRecyclerAdapter(view.context)
         var layoutManager: androidx.recyclerview.widget.RecyclerView.LayoutManager
         layoutManager = androidx.recyclerview.widget.LinearLayoutManager(view.context)
         rview_trashcan.hasFixedSize()
