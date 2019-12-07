@@ -1,6 +1,9 @@
 package com.example.myapplication
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +13,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.animation.ScaleAnimation
 import android.widget.*
+import androidx.core.content.ContextCompat.startActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import java.util.*
@@ -44,10 +48,16 @@ class rememoRecyclerAdapter(context : Context, num : Int) :
             val data = p0.getValue<ReminderData>(ReminderData::class.java)
             val key = p0.key
             if(data != null && key != null) {
-                for((index, reminder) in items.withIndex()){
-                    items.removeAt(index)
-                    items.add(index, reminder)
-                    notifyItemChanged(index)
+                for((index, ptr) in items.withIndex()){
+                    if (ptr.key.equals(key)) {
+                        items.removeAt(index)
+                        if(data.status == pageNum) {
+                            items.add(index, data)
+                            notifyItemChanged(index)
+                        } else notifyItemRemoved(index)
+
+                        break
+                    }
                 }
             }
         }
@@ -123,7 +133,7 @@ class rememoRecyclerAdapter(context : Context, num : Int) :
             1 -> {
                 layoutInflater.inflate(R.layout.item_ongoing, p0, false)
             }
-            2 -> {
+            3 -> {
                 layoutInflater.inflate(R.layout.item_finished, p0, false)
             }
             else -> {
@@ -206,11 +216,19 @@ class rememoRecyclerAdapter(context : Context, num : Int) :
         val memoSelect = view.findViewById<CheckBox>(R.id.rvChx)
         init{
             memoSelect.setOnCheckedChangeListener { buttonView, isChecked ->
+                val olditem = items[adapterPosition]
+                var newRemind = ReminderData(uid = olditem.uid, status = 2, key=olditem.key, date=olditem.date, content=olditem.content, header=olditem.header, checked = true, deleted=olditem.deleted)
+                Log.d("CLICK_CHECK", "id" + adapterPosition)
+                ref.child(items[adapterPosition].key!!).setValue(newRemind)
                 items[adapterPosition].checked = isChecked
             }
-            //memoDelete.setOnCheckedChangeListener { buttonView, isDeleted ->
-            //    items[adapterPosition].deleted = isDeleted
-            //}
+            memoDelete.setOnCheckedChangeListener { buttonView, isDeleted ->
+                Log.d("CLICK_DEL", "id" + adapterPosition)
+                val olditem = items[adapterPosition]
+                var newRemind = ReminderData(uid = olditem.uid, status = 3, key=olditem.key, date=olditem.date, content=olditem.content, header=olditem.header, checked = olditem.checked, deleted=true)
+                ref.child(items[adapterPosition].key!!).setValue(newRemind)
+                items[adapterPosition].deleted = isDeleted
+            }
             view.setOnClickListener {
                 if(myListener != null){
                     if(adapterPosition != androidx.recyclerview.widget.RecyclerView.NO_POSITION){

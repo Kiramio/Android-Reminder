@@ -8,6 +8,7 @@ import java.sql.Time
 import com.google.gson.annotations.SerializedName
 
 class ReminderData(
+    val key: String? = "",
     val uid: String = "",
     val header: String? = "",//header
     val content: String? = "",//overview

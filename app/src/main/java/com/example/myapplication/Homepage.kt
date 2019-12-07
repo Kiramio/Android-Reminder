@@ -120,7 +120,7 @@ class Homepage : AppCompatActivity(),
 
         btnPanel.setupWithViewPager(viewPager1)
 
-            btnPanel.getTabAt(0)?.setText("Ongoing")
+        btnPanel.getTabAt(0)?.setText("Ongoing")
         btnPanel.getTabAt(1)?.setText("Finished")
         btnPanel.getTabAt(2)?.setText("Trashcan")
 
@@ -150,7 +150,7 @@ class Homepage : AppCompatActivity(),
                     startActivity(intent) }
             R.id.nav_finished -> {
                 val intent = Intent(this, finished::class.java)
-                intent.putExtra("action", 0)
+                intent.putExtra("action", 1)
                 startActivity(intent) }
             R.id.nav_trash -> {
                 val intent = Intent(this, trashcan::class.java)

@@ -59,9 +59,9 @@ class ongoingFragment : androidx.fragment.app.Fragment(), rememoRecyclerAdapter.
         rview_ongoing.itemAnimator?.removeDuration = 1000L
         rview_ongoing.itemAnimator?.moveDuration = 1000L
         rview_ongoing.itemAnimator?.changeDuration = 1000L
-        view.findViewById<RadioButton>(R.id.rvDelete).setOnClickListener{
+        /*view.findViewById<RadioButton>(R.id.rvDelete).setOnClickListener{
 
-        }
+        }*/
 
     }
 

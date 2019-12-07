@@ -166,8 +166,8 @@ class CreateNewRemainder : Fragment(), TimePickerFragment.OnFragmentInteractionL
         val id = getCurrentTime()
         val ref = database.getReference("/reminders/")
         val setTime = calendar.getTimeInMillis()
-        val reminder = ReminderData(uid, reminder_title.text.toString(),reminder_detail.text.toString(),1, setTime, false, false)
         val key = ref.push().key
+        val reminder = ReminderData(key ,uid, reminder_title.text.toString(),reminder_detail.text.toString(),1, setTime, false, false)
         ref.child(key!!).setValue(reminder)
     }
 
