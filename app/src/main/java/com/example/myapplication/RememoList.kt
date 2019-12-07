@@ -1,4 +1,4 @@
-package com.example.myapplication
+/*package com.example.myapplication
 import com.google.gson.Gson
 
 class RememoList {
@@ -16,4 +16,4 @@ class RememoList {
             //movie.checked = false
         }
     }
-}
+}*/

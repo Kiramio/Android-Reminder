@@ -8,11 +8,11 @@ import java.sql.Time
 import com.google.gson.annotations.SerializedName
 
 class ReminderData(
-    val uid: String,
-    val header: String?,//header
-    val content: String?,//overview
-    val status: Int?,//finished, ongoing or trashcan
-    val date: Long?,//or use int
-    var checked: Boolean?,//if the reminder's check box is checked
-    var deleted: Boolean?
+    val uid: String = "",
+    val header: String? = "",//header
+    val content: String? = "",//overview
+    val status: Int? = 0,//finished, ongoing or trashcan
+    val date: Long? = 0,//or use int
+    var checked: Boolean? = false,//if the reminder's check box is checked
+    var deleted: Boolean? = false
 ) : Serializable

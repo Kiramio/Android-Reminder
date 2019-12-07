@@ -37,10 +37,7 @@ class memoDetailFragment : Fragment() {
         super.onCreate(savedInstanceState)
         retainInstance = true
         setHasOptionsMenu(true)
-        this.rememoList = Gson().fromJson(
-            rememos,
-            Array<ReminderData>::class.java
-        ).asList()
+
 
         arguments?.let {
             rememoIndex = it.getInt(ARG_MOV)
